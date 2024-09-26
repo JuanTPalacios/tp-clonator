@@ -8,7 +8,19 @@
 // Just a little comment
 
 function clonator (source) {
-
+  if (Array.isArray(source)) {
+    return source.map(function (el) {
+      return clonator(el);
+    });
+  } else if (typeof source === 'object' && source !== null) {
+    var res = {};
+    for (var key in source) {
+      if (source.hasOwnProperty(key)) {
+        res[key] = clonator(source[key]);
+      }
+    }
+    return res;
+  } else return source;
 }
 
 module.exports = clonator;
